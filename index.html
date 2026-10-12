@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dia">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zoológico Expedición en la Selva</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <span class="marca"><img class="logo-zoo" id="logoZoo" alt="Logo del zoológico"><span id="logoNombre">Zoológico <span>Expedición en la Selva</span></span></span>
+    <nav class="menu" aria-label="Principal">
+      <a href="#animales">Animales</a>
+      <a href="#actividades">Actividades</a>
+      <a href="#visita">Visita</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#experiencia">Experiencia</a>
+      <a href="#mis-favoritos">Favoritos</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+  </div>
+</header>
+
+<section class="inicio" id="inicio">
+  <div class="hero-txt">
+    <p class="hero-etiq"><span class="punto" id="punto"></span><span id="estadoTxt"></span></p>
+    <h1 class="hero-titulo" id="titulo">Zoológico <em>Expedición en la Selva</em></h1>
+    <p class="hero-bajada">Animales de la sabana, la selva, la montaña, el polo y el agua. Todo en un solo día.</p>
+    <div class="hero-botones">
+      <a class="btn" href="#animales">Ver animales</a>
+      <a class="btn sol" href="#actividades">Actividades</a>
+    </div>
+  </div>
+
+  <div class="hero-datos">
+    <div class="stats">
+      <div><b id="sEsp">0</b><span>especies</span></div>
+      <div><b id="sHab">0</b><span>áreas</span></div>
+      <div><b id="sFav">0</b><span>favoritos</span></div>
+    </div>
+    <div class="sabias">
+      <strong>¿Sabías que?</strong>
+      <p id="sabiasTxt"></p>
+      <button class="btn chico" id="sabiasBtn" type="button">Otro dato</button>
+    </div>
+  </div>
+
+  <div class="postales" id="mosaico" aria-label="Postales de nuestros animales"></div>
+</section>
+
+<!-- ANIMALES -->
+<section class="bloque" id="animales" aria-labelledby="h-animales">
+  <span class="num">01 · Animales</span>
+  <h2 id="h-animales">Nuestros animales</h2>
+  <p class="sub">Filtra por hábitat, busca a tu favorito y gira la tarjeta para conocerlo.</p>
+  <div class="chips" id="zonaChips" role="group" aria-label="Filtrar por hábitat"></div>
+  <div class="barra-filtros">
+    <label class="campo">Buscar
+      <input id="buscar" type="search" maxlength="40" placeholder="Ej. jaguar, cóndor…" autocomplete="off">
+    </label>
+    <button class="toggle" id="soloFavs" type="button" aria-pressed="false">Solo favoritos</button>
+  </div>
+  <p class="meta" id="conteo" style="margin-bottom:18px"></p>
+  <div class="grid" id="grid"></div>
+  <p class="vacio" id="vacio" hidden>No hay animales con estos filtros.</p>
+  <p class="pista">Desde el reverso de cada tarjeta puedes abrir la ficha completa.</p>
+</section>
+
+<!-- ACTIVIDADES -->
+<section class="bloque" id="actividades" aria-labelledby="h-act">
+  <span class="num">Actividades</span>
+  <h2 id="h-act">Eventos y actividades</h2>
+  <p class="sub">Espectáculos, charlas y recorridos guiados. Marca las que te interesen y te las recordamos.</p>
+  <div class="chips" id="actChips" role="group" aria-label="Filtrar actividades"></div>
+  <div class="actividades" id="actLista"></div>
+</section>
+
+<!-- VISITA -->
+<section class="bloque" id="visita" aria-labelledby="h-visita">
+  <span class="num">02 · Visita</span>
+  <h2 id="h-visita">Planea tu visita</h2>
+  <p class="sub">Revisa el pronóstico del día que quieres venir y calcula cuánto pagarás.</p>
+  <div class="dos">
+    <article class="tarjeta">
+      <h3>Pronóstico</h3>
+      <form id="climaForm" novalidate>
+        <div class="row">
+          <label class="campo">Ciudad
+            <input id="ciudad" type="text" maxlength="60" placeholder="Ej. Santiago" autocomplete="off">
+          </label>
+          <label class="campo">Fecha
+            <input id="fecha" type="date">
+          </label>
+        </div>
+        <p class="err" id="climaErr" aria-live="assertive"></p>
+        <div><button class="btn" type="submit">Consultar clima</button></div>
+      </form>
+      <div class="clima-res" id="climaRes" aria-live="polite"></div>
+      <p class="api">Datos de Open-Meteo (API gratuita, sin clave). Cubre hasta 16 días.</p>
+    </article>
+
+    <article class="tarjeta">
+      <h3>Boletos</h3>
+      <form id="boletosForm" novalidate>
+        <div class="row">
+          <label class="campo">Adultos
+            <input id="adultos" type="number" min="0" max="10" value="2">
+          </label>
+          <label class="campo">Niños (menores de 12)
+            <input id="ninos" type="number" min="0" max="10" value="0">
+          </label>
+        </div>
+        <p class="err" id="boletosErr" aria-live="assertive"></p>
+        <p class="meta">Adulto: $8.000 · Niño: $4.000</p>
+      </form>
+      <p class="total" id="total" aria-live="polite"></p>
+    </article>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="bloque" id="quiz" aria-labelledby="h-quiz">
+  <span class="num">03 · Quiz</span>
+  <h2 id="h-quiz">¿Qué animal serías?</h2>
+  <p class="sub">Responde las cinco preguntas y descubre tu animal.</p>
+  <form class="quiz" id="quizForm" novalidate>
+    <div id="preguntas" style="display:grid;gap:18px"></div>
+    <p class="err" id="quizErr" aria-live="assertive"></p>
+    <div><button class="btn" type="submit">Ver mi animal</button></div>
+  </form>
+  <div class="resultado" id="quizRes" hidden aria-live="polite"></div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section class="bloque" id="experiencia" aria-labelledby="h-exp">
+  <span class="num">04 · Experiencia</span>
+  <h2 id="h-exp">Puntúa tu experiencia</h2>
+  <p class="sub">Tu calificación ayuda a otros visitantes a decidir cuándo venir.</p>
+  <div class="exp">
+    <article class="tarjeta puntaje">
+      <div class="num-grande" id="promNum">–</div>
+      <div class="estrellas-prom" id="promEst">☆☆☆☆☆</div>
+      <p class="meta" id="promTxt">Aún no hay calificaciones</p>
+      <div class="barras" id="barras" aria-label="Distribución de calificaciones"></div>
+    </article>
+
+    <div class="tarjeta">
+      <form id="expForm" novalidate>
+        <fieldset class="estrellas" id="estrellas">
+          <legend>Tu calificación</legend>
+        </fieldset>
+        <label class="campo">Tu nombre (opcional)
+          <input id="expNombre" type="text" maxlength="30" autocomplete="name">
+        </label>
+        <label class="campo">Comentario (opcional)
+          <textarea id="expTexto" maxlength="240" rows="3"></textarea>
+          <span class="err" id="expErr" aria-live="assertive"></span>
+        </label>
+        <div><button class="btn" type="submit">Enviar calificación</button></div>
+        <p class="meta" id="expOk" aria-live="polite"></p>
+      </form>
+      <div class="muro" id="muro"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PREGUNTAS -->
+<!-- FAVORITOS -->
+<section class="bloque" id="mis-favoritos" aria-labelledby="h-fav">
+  <span class="num">Para ti</span>
+  <h2 id="h-fav">Mis favoritos</h2>
+  <p class="sub">Los animales que marcaste con el corazón. Toca uno para abrir su ficha.</p>
+  <div class="mini-grid" id="favLista"></div>
+</section>
+
+<!-- CUENTA REGRESIVA -->
+<section class="bloque" id="regresiva" aria-labelledby="h-reg">
+  <span class="num">Cuenta regresiva</span>
+  <h2 id="h-reg">¿Cuándo vienes?</h2>
+  <p class="sub">Elige el día de tu visita y mira cuánto falta para llegar.</p>
+  <form class="reg-form" id="regForm" novalidate>
+    <label class="campo">Fecha de tu visita
+      <input type="date" id="regFecha">
+    </label>
+    <div><button class="btn" type="submit">Empezar la cuenta</button></div>
+    <p class="err" id="regErr" aria-live="assertive"></p>
+  </form>
+  <div class="regresiva" id="regCajas"></div>
+</section>
+
+<!-- PREGUNTAS -->
+<section class="bloque" id="faq" aria-labelledby="h-faq">
+  <span class="num">05 · Ayuda</span>
+  <h2 id="h-faq">Preguntas frecuentes</h2>
+  <div class="faq" style="margin-top:24px">
+    <details class="tarjeta"><summary>¿Cuál es el horario?</summary><p>Abrimos todos los días de 9:00 a 18:00. Te recomendamos llegar temprano para ver las alimentaciones.</p></details>
+    <details class="tarjeta"><summary>¿Puedo entrar con mascota?</summary><p>No. Por el bienestar de los animales, solo se permiten perros de asistencia.</p></details>
+    <details class="tarjeta"><summary>¿Puedo comer dentro del zoológico?</summary><p>Sí, hay cafeterías y puestos de snacks. Está prohibido dar alimento a los animales.</p></details>
+    <details class="tarjeta"><summary>¿Puedo cambiar mi boleto?</summary><p>Sí, puedes cambiar la fecha hasta 24 horas antes de tu visita, siempre que haya disponibilidad.</p></details>
+  </div>
+</section>
+
+<footer class="pie">
+  <div class="row">
+    <label class="campo">Color principal
+      <input type="color" id="acento" value="#2e7d55" aria-label="Color principal">
+    </label>
+    <label class="campo">Color secundario
+      <input type="color" id="colorSol" value="#ffc02e" aria-label="Color secundario">
+    </label>
+    <button class="toggle" id="temaBtn" type="button" aria-pressed="false">Modo oscuro</button>
+  </div>
+  <p><strong id="pieNombre">Zoológico Expedición en la Selva</strong> · Descripciones propias del zoológico.</p>
+</footer>
+
+<dialog id="ficha" class="ficha-dlg" aria-labelledby="fdTitulo">
+  <button class="dlg-cerrar" id="fdCerrar" type="button" aria-label="Cerrar ficha">Cerrar</button>
+  <div class="dlg-cuerpo">
+    <div class="dlg-foto" id="fdFoto"></div>
+    <div class="dlg-info">
+      <p class="k" id="fdZona"></p>
+      <h2 id="fdTitulo"></h2>
+      <div class="fd-datos" id="fdDatos"></div>
+      <div class="fd-texto" id="fdTexto"></div>
+    </div>
+  </div>
+</dialog>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
